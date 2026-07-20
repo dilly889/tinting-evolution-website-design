@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<meta name="ext-resource-dependency" content="assets/photos/grand-vitara.png">
+<meta name="ext-resource-dependency" content="assets/photos/polo-grey.png">
+<meta name="ext-resource-dependency" content="assets/photos/polo-silver.png">
+<meta name="ext-resource-dependency" content="assets/photos/bmw.png">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #E7E6E1; color: #1A1A15; font-family: 'Hanken Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #1A1A15; text-decoration: none; }
+  a:hover { color: #2E56C8; }
+  ::selection { background: #3B63D6; color: #fff; }
+  select, input { font-family: 'Hanken Grotesk', sans-serif; }
+  @media (max-width: 900px) { .te-navlinks { display: none !important; } .te-burger { display: grid !important; } .te-hero { grid-template-columns: 1fr !important; } .te-heroimg { min-height: 340px !important; } }
+  @media (max-width: 720px) { .te-two { grid-template-columns: 1fr !important; } }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail"><svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><rect width="200" height="200" fill="#101115"></rect><text x="100" y="120" font-family="sans-serif" font-weight="700" font-size="72" fill="#3B63D6" text-anchor="middle">TE</text></svg></template>
+
+<div style="min-height:100%;background:#FDFDFB;">
+  <x-import component-from-global-scope="image-slot" from="./image-slot.js" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;" hint-size="0,0"></x-import>
+
+  <main style="max-width:1220px;margin:0 auto;">
+
+    <!-- ===== HERO ===== -->
+    <section id="top" style="padding:20px;">
+      <div class="te-hero" style="display:grid;grid-template-columns:1.02fr 1fr;gap:22px;align-items:stretch;">
+
+        <!-- Left: big image card -->
+        <div class="te-heroimg" style="position:relative;border-radius:22px;overflow:hidden;min-height:520px;">
+          <image-slot id="te-hero" shape="rect" src="assets/photos/fortuner-black.png" placeholder="Drop hero photo, freshly tinted car"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,22,0.4) 0%,rgba(10,14,22,0) 32%,rgba(10,14,22,0) 55%,rgba(10,14,22,0.78) 100%);pointer-events:none;"></div>
+          <div style="position:absolute;top:18px;left:18px;pointer-events:none;">
+            <img src="assets/logo.png" alt="Tinting Evolution" style="display:block;height:60px;width:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,0.55));">
+          </div>
+          <div style="position:absolute;left:26px;right:26px;bottom:26px;pointer-events:none;">
+            <div style="color:#fff;font-size:22px;font-weight:500;line-height:1.2;letter-spacing:-0.01em;max-width:20ch;">Cooler cabins and real privacy, done right in your driveway.</div>
+          </div>
+        </div>
+
+        <!-- Right: nav + headline + thumbs -->
+        <div style="display:flex;flex-direction:column;padding:6px 6px 10px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
+            <div class="te-navlinks" style="display:flex;align-items:center;gap:24px;">
+              <a href="#top" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Home</a>
+              <a href="#services" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Services</a>
+              <a href="#pricing" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Pricing</a>
+              <a href="#gallery" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Gallery</a>
+              <a href="#faq" style="color:#3C3B34;font-weight:500;font-size:14.5px;">FAQ</a>
+            </div>
+            <a href="#quote" style="display:inline-flex;align-items:center;background:#16160F;color:#fff;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;white-space:nowrap;">Get a Quote</a>
+            <button onClick="{{ toggleNav }}" aria-label="Menu" class="te-burger" style="display:none;background:transparent;border:1px solid rgba(0,0,0,0.15);color:#16160F;width:42px;height:42px;border-radius:11px;font-size:18px;cursor:pointer;">☰</button>
+          </div>
+
+          <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:2px;margin-top:14px;padding:10px;background:#F4F3EF;border-radius:16px;">
+              <a href="#services" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">Services</a>
+              <a href="#pricing" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">Pricing</a>
+              <a href="#gallery" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">Gallery</a>
+              <a href="#faq" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">FAQ</a>
+            </div>
+          </sc-if>
+
+          <div style="margin-top:auto;padding-top:44px;">
+            <h1 style="font-weight:500;font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-0.025em;margin:0;color:#17170F;">Tired of overpriced tinting? Get your <span style="color:#2E56C8;">own private guy.</span></h1>
+            <a href="#quote" style="display:inline-flex;align-items:center;gap:9px;background:#16160F;color:#fff;font-weight:600;font-size:15px;padding:14px 26px;border-radius:999px;margin-top:26px;">Get a free quote</a>
+          </div>
+
+          <div style="margin-top:34px;display:flex;gap:12px;">
+            <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="4">
+              <div style="flex:1;position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;border:2px solid {{ t.ring }};">
+                <image-slot id="{{ t.id }}" shape="rect" src="{{ t.src }}" placeholder="{{ t.ph }}"></image-slot>
+              </div>
+            </sc-for>
+          </div>
+
+          <p style="color:#6E6C63;font-size:14.5px;line-height:1.6;margin:22px 0 0;max-width:52ch;">Keanan trained in the same workshops as the big names: Maruis Solarflex, Riderevive and Hybrid AE Paarl, and now brings that exact standard to your home or office, for almost half the studio price.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CRAFT + FEATURE PILLS ===== -->
+    <section style="padding:64px 40px 40px;">
+      
+      <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end;margin-top:16px;">
+        <h2 style="font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.04;letter-spacing:-0.02em;margin:0;color:#17170F;">Premium tint, priced for real people</h2>
+        <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:0;">Same films, same tools, same finish the studios deliver: Apex film in shades from 5% to 50%, backed for five years. The difference is you skip the showroom markup.</p>
+      </div>
+      <div class="te-two" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px;">
+        <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
+          <button onClick="{{ f.select }}" style="display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;min-height:88px;padding:17px 18px;border-radius:18px;border:1px solid {{ f.border }};background:{{ f.bg }};box-shadow:{{ f.shadow }};transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;" style-hover="transform:translateY(-3px);">
+            <span style="display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:{{ f.iconBg }};color:{{ f.iconColor }};font-size:17px;flex-shrink:0;">{{ f.icon }}</span>
+            <span style="display:flex;flex-direction:column;line-height:1.25;min-width:0;">
+              <span style="font-weight:600;font-size:14.5px;color:{{ f.titleColor }};white-space:nowrap;">{{ f.title }}</span>
+              <span style="font-size:12.5px;color:{{ f.subColor }};margin-top:4px;">{{ f.sub }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== SHOWCASE + OVERLAY CARD ===== -->
+    <section style="padding:20px 40px 40px;">
+      <div style="position:relative;border-radius:24px;overflow:hidden;min-height:460px;">
+        <image-slot id="te-showcase" shape="rect" src="assets/photos/bmw.png" placeholder="Drop a wide tinted-car photo"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,14,22,0.55),rgba(10,14,22,0.1) 60%);pointer-events:none;"></div>
+        <div style="position:absolute;top:28px;left:30px;pointer-events:none;">
+          <div style="color:#6D94FF;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;">The finish</div>
+          <div style="color:#fff;font-weight:500;font-size:clamp(24px,3vw,36px);line-height:1.05;letter-spacing:-0.02em;margin-top:8px;max-width:16ch;">Studio-grade tint, at your place</div>
+        </div>
+        <div style="position:absolute;right:22px;bottom:22px;width:min(250px,76%);background:#FDFDFB;border-radius:16px;padding:15px;box-shadow:0 24px 50px rgba(0,0,0,0.3);">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span style="font-size:11.5px;color:#8B8980;font-weight:600;">Sedan · all windows</span>
+            <span style="background:#EAEFFB;color:#2E56C8;font-weight:700;font-size:10.5px;padding:4px 9px;border-radius:999px;">20% shade</span>
+          </div>
+          <div style="font-weight:600;font-size:26px;letter-spacing:-0.02em;margin-top:7px;color:#17170F;">from R1,000</div>
+          <div style="display:flex;gap:7px;margin-top:10px;">
+            <span style="background:#F4F3EF;color:#3C3B34;font-size:10.5px;font-weight:600;padding:5px 9px;border-radius:999px;">✓ 5-yr warranty</span>
+            <span style="background:#F4F3EF;color:#3C3B34;font-size:10.5px;font-weight:600;padding:5px 9px;border-radius:999px;">Apex film</span>
+          </div>
+          <a href="#quote" style="display:flex;align-items:center;justify-content:center;background:#16160F;color:#fff;font-weight:600;font-size:13px;padding:10px;border-radius:11px;margin-top:12px;">Get this quote</a>
+        </div>
+      </div>
+
+      <!-- stats -->
+      <div class="te-two" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px;">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="position:relative;overflow:hidden;background:#F7F6F1;border:1px solid #EDEBE4;border-radius:16px;padding:28px 18px 24px;text-align:center;transition:transform .22s ease, box-shadow .22s ease;" style-hover="transform:translateY(-3px);box-shadow:0 14px 28px rgba(20,20,15,0.08);">
+            <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:36px;height:4px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,#5B84F0,#2C46B8);"></div>
+            <div style="font-weight:600;font-size:clamp(26px,3.2vw,38px);letter-spacing:-0.02em;color:#17170F;margin-top:8px;">{{ s.big }}</div>
+            <div style="color:#8B8980;font-size:11.5px;font-weight:700;margin-top:8px;text-transform:uppercase;letter-spacing:0.6px;">{{ s.small }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES LIST (dark image + card) ===== -->
+    <section id="services" style="padding:40px 40px 20px;">
+      <div style="position:relative;border-radius:24px 24px 0 0;overflow:hidden;min-height:280px;">
+        <image-slot id="te-servbg" shape="rect" src="assets/photos/gr-corolla.png" placeholder="Drop a wide landscape car photo"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,22,0.25),rgba(10,14,22,0.72));pointer-events:none;"></div>
+        <div style="position:absolute;left:30px;bottom:26px;right:30px;pointer-events:none;">
+          <div style="color:#6D94FF;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;">Car &amp; glass tinting</div>
+          <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:end;margin-top:8px;">
+            <div style="color:#fff;font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.05;letter-spacing:-0.02em;">Everything I can tint for you</div>
+            <div style="color:#D8D6CE;font-size:14px;line-height:1.6;">From a quick front-two to a full PPF wrap. Cars, bakkies, homes and offices. Pick a service, I'll confirm the exact price.</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#FDFDFB;border:1px solid #ECEAE3;border-top:none;border-radius:0 0 24px 24px;overflow:hidden;">
+        <sc-for list="{{ serviceList }}" as="s" hint-placeholder-count="6">
+          <a href="#quote" style="display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid #F0EEE7;color:#17170F;transition:background .15s;" style-hover="background:#F7F6F1;">
+            <span style="display:grid;place-items:center;width:44px;height:44px;border-radius:11px;background:#EAEFFB;color:#2E56C8;font-size:17px;flex-shrink:0;">{{ s.icon }}</span>
+            <span style="flex:1;min-width:0;">
+              <span style="display:block;font-weight:600;font-size:16px;">{{ s.t }}</span>
+              <span style="display:block;color:#8B8980;font-size:13px;margin-top:2px;">{{ s.d }}</span>
+            </span>
+            <span style="font-weight:600;font-size:15px;color:#17170F;white-space:nowrap;">{{ s.p }}</span>
+            <span style="color:#B5B2A8;font-size:18px;flex-shrink:0;">›</span>
+          </a>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- ===== USE-CASE ===== -->
+    <section style="padding:44px 40px 20px;">
+      
+      <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end;margin-top:16px;">
+        <h2 style="font-weight:500;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.02em;margin:0;color:#17170F;">The real difference tint makes</h2>
+        <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:0;">Beyond the looks, every job is about comfort, protection and keeping your interior like new.</p>
+      </div>
+      <div style="position:relative;border-radius:24px;overflow:hidden;min-height:420px;margin-top:26px;">
+        <image-slot id="te-usecase" shape="rect" src="assets/photos/civic.png" placeholder="Drop a car interior / dashboard photo"></image-slot>
+        <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,22,0.15),rgba(10,14,22,0.7));pointer-events:none;"></div>
+        <div style="position:absolute;left:0;right:0;bottom:34px;text-align:center;padding:0 24px;pointer-events:none;">
+          <div style="color:#fff;font-weight:500;font-size:clamp(22px,2.8vw,32px);line-height:1.15;letter-spacing:-0.02em;">Cooler cabins. Less glare.<br>Real privacy. UV protection.</div>
+          <div style="color:#D8D6CE;font-size:14px;margin-top:12px;">Apex film blocks heat and UV, so every Paarl drive is more comfortable.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section id="pricing" style="padding:56px 40px 20px;">
+      
+      <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end;margin-top:16px;">
+        <h2 style="font-weight:500;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.02em;margin:0;color:#17170F;">No hidden costs. Starting-from pricing.</h2>
+        <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:0;">Final quote depends on your vehicle and shade. Message me and I'll confirm on the spot.</p>
+      </div>
+      <div style="margin-top:30px;background:#FDFDFB;border:1px solid #ECEAE3;border-radius:22px;overflow:hidden;">
+        <sc-for list="{{ pricing }}" as="p" hint-placeholder-count="8">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;border-bottom:1px solid #F0EEE7;">
+            <div>
+              <div style="font-weight:600;font-size:15.5px;color:#17170F;">{{ p.name }}</div>
+              <div style="color:#8B8980;font-size:13px;margin-top:2px;">{{ p.note }}</div>
+            </div>
+            <div style="font-weight:600;font-size:17px;color:#2E56C8;white-space:nowrap;">{{ p.price }}</div>
+          </div>
+        </sc-for>
+        <div style="padding:16px 24px;text-align:center;color:#8B8980;font-size:12.5px;background:#F7F6F1;">All prices in ZAR · “from” pricing · 5-year warranty included on every job</div>
+      </div>
+    </section>
+
+    <!-- ===== GALLERY ===== -->
+    <section id="gallery" style="padding:56px 40px 20px;">
+      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;">
+        <div>
+          
+          <h2 style="font-weight:500;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.02em;margin:14px 0 0;color:#17170F;">Recent jobs around Paarl</h2>
+        </div>
+        <a href="https://instagram.com/keananwaries" target="_blank" style="font-weight:600;font-size:14px;color:#2E56C8;">See more on Instagram →</a>
+      </div>
+      <div class="te-two" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;">
+        <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal1" shape="rect" src="assets/photos/fortuner-white.png" placeholder="Fortuner, full tint"></image-slot></div>
+        <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal2" shape="rect" src="assets/photos/corolla-cross.png" placeholder="Corolla Cross, tint"></image-slot></div>
+        <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal3" shape="rect" src="assets/photos/toyota-blue.png" placeholder="Toyota SUV, tint"></image-slot></div>
+        <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal4" shape="rect" src="assets/photos/land-cruiser.png" placeholder="Land Cruiser, tint"></image-slot></div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" style="padding:56px 40px 20px;">
+      <div class="te-two" style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:start;">
+        <div>
+          <h2 style="font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.02;letter-spacing:-0.02em;margin:0;color:#17170F;">Frequently asked questions</h2>
+          <a href="{{ waPlain }}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#16160F;color:#fff;font-weight:600;font-size:14px;padding:13px 24px;border-radius:999px;margin-top:26px;">Chat to Keanan</a>
+        </div>
+        <div style="display:flex;flex-direction:column;">
+          <sc-for list="{{ faqList }}" as="f" hint-placeholder-count="6">
+            <div style="border-bottom:1px solid #E9E7DF;">
+              <button onClick="{{ f.toggle }}" style="width:100%;text-align:left;background:transparent;border:none;color:#17170F;padding:20px 2px;display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;font-family:'Hanken Grotesk';font-weight:600;font-size:16px;">
+                <span>{{ f.q }}</span>
+                <span style="color:#2E56C8;font-size:20px;line-height:1;flex-shrink:0;">{{ f.sign }}</span>
+              </button>
+              <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:0 2px 20px;color:#6E6C63;font-size:14.5px;line-height:1.65;max-width:56ch;">{{ f.a }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== QUOTE FORM ===== -->
+    <section id="quote" style="padding:56px 40px 20px;">
+      <div style="background:#F5F4EF;border-radius:26px;padding:40px;">
+        <div class="te-two" style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;">
+          <div>
+            <div style="display:flex;align-items:center;gap:9px;color:#9A988F;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;">✎ Free quote</div>
+            <h2 style="font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.02;letter-spacing:-0.02em;margin:14px 0 0;color:#17170F;">Tell me what you drive.</h2>
+            <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:16px 0 0;">Fill this in and it opens WhatsApp with your details ready to send. I'll reply with an exact price, usually same day.</p>
+            <div style="margin-top:26px;display:flex;flex-direction:column;gap:14px;">
+              <a href="{{ waPlain }}" target="_blank" style="display:flex;align-items:center;gap:12px;color:#17170F;font-weight:600;"><span style="width:40px;height:40px;border-radius:11px;background:#25D366;display:grid;place-items:center;color:#fff;font-size:17px;">✆</span> 068 329 4741</a>
+              <div style="display:flex;align-items:center;gap:12px;color:#6E6C63;font-weight:500;font-size:14.5px;"><span style="width:40px;height:40px;border-radius:11px;background:#EAEFFB;color:#2E56C8;display:grid;place-items:center;"><svg viewBox="0 0 24 24" width="18" height="18" fill="#3C3B34"><path d="M12 2C7.86 2 4.5 5.36 4.5 9.5c0 5.25 6.3 11.6 6.57 11.87a1.3 1.3 0 0 0 1.86 0C13.2 21.1 19.5 14.75 19.5 9.5 19.5 5.36 16.14 2 12 2zm0 10.25a2.75 2.75 0 1 1 0-5.5 2.75 2.75 0 0 1 0 5.5z"></path></svg></span> Paarl &amp; surrounds · will travel for transport cost</div>
+            </div>
+          </div>
+          <div style="background:#FDFDFB;border:1px solid #ECEAE3;border-radius:20px;padding:26px;">
+            <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin-bottom:7px;">Your name</label>
+            <input value="{{ fName }}" onInput="{{ setName }}" placeholder="e.g. Thabo" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 14px;border-radius:11px;font-size:15px;outline:none;" style-focus="border-color:#3B63D6;">
+            <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin:16px 0 7px;">Vehicle (make &amp; model)</label>
+            <input value="{{ fVehicle }}" onInput="{{ setVehicle }}" placeholder="e.g. VW Polo / Toyota Hilux" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 14px;border-radius:11px;font-size:15px;outline:none;" style-focus="border-color:#3B63D6;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+              <div>
+                <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin-bottom:7px;">Service</label>
+                <select value="{{ fService }}" onChange="{{ setService }}" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 12px;border-radius:11px;font-size:14.5px;outline:none;">
+                  <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
+                </select>
+              </div>
+              <div>
+                <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin-bottom:7px;">Shade</label>
+                <select value="{{ fShade }}" onChange="{{ setShade }}" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 12px;border-radius:11px;font-size:14.5px;outline:none;">
+                  <sc-for list="{{ shadeOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
+                </select>
+              </div>
+            </div>
+            <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin:16px 0 7px;">Area / suburb</label>
+            <input value="{{ fArea }}" onInput="{{ setArea }}" placeholder="e.g. Paarl North" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 14px;border-radius:11px;font-size:15px;outline:none;" style-focus="border-color:#3B63D6;">
+            <a href="{{ waHref }}" target="_blank" style="margin-top:22px;display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#06210F;font-weight:700;font-size:16px;padding:15px;border-radius:12px;">Send on WhatsApp →</a>
+            <p style="text-align:center;color:#9A988F;font-size:12px;margin:12px 0 0;">Opens WhatsApp with your details filled in. No spam, ever.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer style="padding:56px 40px 40px;">
+      <div class="te-two" style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;border-top:1px solid #E9E7DF;padding-top:40px;">
+        <div>
+          <img src="assets/logo.png" alt="Tinting Evolution" style="display:block;height:64px;width:auto;">
+          <p style="color:#8B8980;font-size:14px;line-height:1.6;margin:16px 0 0;max-width:34ch;">Mobile car &amp; glass tinting in Paarl. Same quality as the big names, at almost half the price.</p>
+        </div>
+        <div>
+          <div style="font-weight:600;font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;color:#9A988F;">Explore</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+            <a href="#services" style="color:#3C3B34;font-size:14.5px;">Services</a>
+            <a href="#pricing" style="color:#3C3B34;font-size:14.5px;">Pricing</a>
+            <a href="#gallery" style="color:#3C3B34;font-size:14.5px;">Gallery</a>
+            <a href="#faq" style="color:#3C3B34;font-size:14.5px;">FAQ</a>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:600;font-size:12.5px;letter-spacing:1.2px;text-transform:uppercase;color:#9A988F;">Get in touch</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px;">
+            <a href="{{ waPlain }}" target="_blank" style="color:#3C3B34;font-size:14.5px;">WhatsApp · 068 329 4741</a>
+            <a href="https://instagram.com/keananwaries" target="_blank" style="color:#3C3B34;font-size:14.5px;">Instagram · @keananwaries</a>
+            <a href="https://facebook.com" target="_blank" style="color:#3C3B34;font-size:14.5px;">Facebook · Keanan Waries</a>
+            <span style="color:#8B8980;font-size:14.5px;">Paarl &amp; surrounds</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;color:#A6A49B;font-size:12.5px;margin-top:32px;">© 2026 Tinting Evolution · Owner: Keanan Waries · Apex film · 5-year warranty</div>
+    </footer>
+
+  </main>
+
+  <a href="{{ waPlain }}" target="_blank" aria-label="WhatsApp" style="position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;justify-content:center;width:56px;height:56px;background:#25D366;color:#06210F;border-radius:50%;box-shadow:0 14px 30px rgba(37,211,102,0.42);">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="#FFFFFF"><path d="M16.02 3C9.4 3 4 8.37 4 14.98c0 2.2.6 4.26 1.63 6.03L3.5 29l8.2-2.15a12.9 12.9 0 0 0 4.32.74h.01c6.62 0 12.02-5.37 12.02-11.98C28.05 8.37 22.65 3 16.02 3zm0 21.8h-.01a10.6 10.6 0 0 1-5.4-1.48l-.39-.23-4.87 1.28 1.3-4.75-.25-.39a9.9 9.9 0 0 1-1.52-5.28c0-5.47 4.46-9.92 9.95-9.92 2.65 0 5.15 1.04 7.02 2.92a9.85 9.85 0 0 1 2.9 6.99c0 5.47-4.46 9.86-9.93 9.86zm5.44-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.65.07-.3-.15-1.24-.46-2.36-1.46-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.08c.15.2 2.09 3.2 5.07 4.48.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35z"></path></svg>
+  </a>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { navOpen: false, openFaq: 0, activeFeature: 2, fName: '', fVehicle: '', fService: 'Car window tint, all windows', fShade: '20%', fArea: '' };
+
+  set(k) { return (e) => this.setState({ [k]: e.target.value }); }
+
+  componentDidMount() {
+    const els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    els.forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(22px)'; });
+    this._revObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const d = parseFloat(el.getAttribute('data-reveal-delay') || '0');
+          el.style.transition = 'opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1)';
+          el.style.transitionDelay = d + 'ms';
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          this._revObs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => this._revObs.observe(el));
+  }
+
+  componentWillUnmount() { if (this._revObs) this._revObs.disconnect(); }
+  waLink(text) { return 'https://wa.me/27683294741?text=' + encodeURIComponent(text); }
+
+  renderVals() {
+    const s = this.state;
+
+    const thumbData = [
+      { id: 'te-th1', ph: 'Vitara', src: 'assets/photos/grand-vitara.png' },
+      { id: 'te-th2', ph: 'Polo', src: 'assets/photos/polo-grey.png' },
+      { id: 'te-th3', ph: 'Polo', src: 'assets/photos/polo-silver.png' },
+      { id: 'te-th4', ph: 'BMW', src: 'assets/photos/bmw.png' },
+    ];
+    const thumbs = thumbData.map((t, i) => ({ ...t, ring: 'transparent' }));
+
+    const featureData = [
+      { icon: '▭', title: 'Apex film', sub: 'Premium, low-fade' },
+      { icon: '◐', title: '5%–50% shades', sub: 'As dark as you like' },
+      { icon: '✓', title: '5-year warranty', sub: 'On every single job' },
+      { icon: '⌂', title: 'Mobile service', sub: 'We come to you' },
+    ];
+    const features = featureData.map((f, i) => {
+      return {
+        icon: f.icon, title: f.title, sub: f.sub,
+        select: () => this.setState({ activeFeature: i }),
+        bg: 'linear-gradient(155deg,#2A2A26,#0E0E0C)',
+        border: '#16160F',
+        shadow: '0 16px 32px rgba(0,0,0,0.28)',
+        iconBg: 'rgba(255,255,255,0.14)',
+        iconColor: '#ffffff',
+        titleColor: '#ffffff',
+        subColor: 'rgba(255,255,255,0.82)',
+      };
+    });
+
+    const stats = [
+      { big: '~50%', small: 'less than studio prices' },
+      { big: '5 yr', small: 'warranty, every job' },
+      { big: '5–50%', small: 'Apex shade range' },
+      { big: 'Same day', small: 'quotes on WhatsApp' },
+    ];
+
+    const serviceList = [
+      { icon: '▤', t: 'Car window tinting', d: 'All windows · Apex film', p: 'from R1,000' },
+      { icon: '▭', t: 'Windshield tinting', d: 'Full screen or sun strip', p: 'from R1,000' },
+      { icon: '◲', t: 'Sunroof tinting', d: 'Single panel, heat-cut', p: 'from R300' },
+      { icon: '⬒', t: 'Home & office glass', d: 'Privacy, heat & UV film', p: 'POA' },
+      { icon: '◨', t: 'Paint protection film', d: 'Full or partial PPF', p: 'from R20,000' },
+      { icon: '◍', t: 'Ceramic coating', d: 'Deep gloss, easy clean', p: 'POA' },
+    ];
+
+    const pricing = [
+      { name: 'Sedan, all windows', note: 'Complete tint, every window', price: 'from R1,000' },
+      { name: 'Sedan, front 2', note: 'Driver & passenger', price: 'from R400' },
+      { name: 'Bakkie, all windows', note: 'Complete tint', price: 'from R1,350' },
+      { name: 'Bakkie, front 2', note: 'Driver & passenger', price: 'from R500' },
+      { name: 'Bakkie canopy', note: 'Canopy glass', price: 'from R600' },
+      { name: 'Sunroof', note: 'Single panel', price: 'from R300' },
+      { name: 'Windshield', note: 'Full or sun strip', price: 'from R1,000' },
+      { name: 'Full PPF', note: 'Paint protection film', price: 'from R20,000+' },
+    ];
+
+    const trained = [
+      { abbr: 'MS', name: 'Maruis Solarflex', role: 'Workshop-trained', delay: 60 },
+      { abbr: 'RR', name: 'Riderevive', role: 'Workshop-trained', delay: 140 },
+      { abbr: 'HA', name: 'Hybrid AE Paarl', role: 'Workshop-trained', delay: 220 },
+    ];
+
+    const faqs = [
+      { q: 'Do you really come to me?', a: 'Yes, I\u2019m fully mobile. I set up at your home or workplace across Paarl and surrounds. Outside that radius I\u2019m happy to travel for a small transport cost.' },
+      { q: 'How long does a car take?', a: 'A typical full-car tint takes about 2\u20133 hours. I\u2019ll give you a time when we book so you can plan your day.' },
+      { q: 'What film do you use?', a: 'Premium Apex film in shades from 5% up to 50%, so you can go as dark or as light as you like while staying road-legal on the windows that matter.' },
+      { q: 'What\u2019s the warranty?', a: 'Every job comes with a 5-year warranty. If the film ever bubbles, peels or discolours in that time, I sort it out.' },
+      { q: 'Why are you so much cheaper?', a: 'No studio, no showroom, no big team to pay for. You\u2019re paying for the film and the workmanship \u2014 the same standard I trained in at Maruis Solarflex, Riderevive and Hybrid AE \u2014 without the overheads baked into studio prices.' },
+      { q: 'How do I book and pay?', a: 'Easiest is WhatsApp \u2014 send your vehicle and what you want and I\u2019ll confirm a price and a slot. We arrange payment when the job\u2019s done and you\u2019re happy.' },
+    ];
+    const faqList = faqs.map((f, i) => ({
+      q: f.q, a: f.a, open: s.openFaq === i, sign: s.openFaq === i ? '\u2212' : '+',
+      toggle: () => this.setState(st => ({ openFaq: st.openFaq === i ? -1 : i })),
+    }));
+
+    const msg = `Hi Keanan! I'd like a tinting quote.\n\nName: ${s.fName || '\u2014'}\nVehicle: ${s.fVehicle || '\u2014'}\nService: ${s.fService}\nShade: ${s.fShade}\nArea: ${s.fArea || '\u2014'}`;
+
+    return {
+      navOpen: s.navOpen,
+      toggleNav: () => this.setState(st => ({ navOpen: !st.navOpen })),
+      closeNav: () => this.setState({ navOpen: false }),
+      thumbs, features, stats, serviceList, pricing, trained, faqList,
+      serviceOptions: ['Car window tint, all windows', 'Car window tint, front 2', 'Bakkie, all windows', 'Bakkie, front 2', 'Bakkie canopy', 'Windshield', 'Sunroof', 'Home / office glass', 'Paint protection film (PPF)', 'Ceramic coating'],
+      shadeOptions: ['5%', '20%', '35%', '50%', 'Not sure, advise me'],
+      fName: s.fName, fVehicle: s.fVehicle, fService: s.fService, fShade: s.fShade, fArea: s.fArea,
+      setName: this.set('fName'), setVehicle: this.set('fVehicle'), setService: this.set('fService'), setShade: this.set('fShade'), setArea: this.set('fArea'),
+      waHref: this.waLink(msg),
+      waPlain: this.waLink("Hi Keanan! I saw your site and I'd like a tinting quote."),
+    };
+  }
+}
+</script>
+</body>
+</html>
