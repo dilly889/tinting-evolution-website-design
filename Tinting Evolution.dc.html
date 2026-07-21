@@ -18,13 +18,142 @@
 <style>
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; background: #E7E6E1; color: #1A1A15; font-family: 'Hanken Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  a { color: #1A1A15; text-decoration: none; }
+  body { margin: 0; min-height: 100vh; background: #E7E6E1; color: #1A1A15; font-family: 'Hanken Grotesk', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: #1A1A15; text-decoration: none; transition: color .24s ease; }
   a:hover { color: #2E56C8; }
+  button, input, select { font: inherit; }
   ::selection { background: #3B63D6; color: #fff; }
-  select, input { font-family: 'Hanken Grotesk', sans-serif; }
-  @media (max-width: 900px) { .te-navlinks { display: none !important; } .te-burger { display: grid !important; } .te-hero { grid-template-columns: 1fr !important; } .te-heroimg { min-height: 340px !important; } }
-  @media (max-width: 720px) { .te-two { grid-template-columns: 1fr !important; } }
+  input, select { font-family: 'Hanken Grotesk', sans-serif; }
+  main { width: 100%; max-width: min(1480px, calc(100% - 64px)); margin: 0 auto; padding: 0 0 48px; }
+  section { padding: 64px 0 0; }
+  section:first-of-type { padding-top: 28px; }
+  .te-hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 32px; align-items: stretch; }
+  .te-heroimg { position: relative; border-radius: 28px; overflow: hidden; min-height: 560px; height: min(76vh, 760px); max-height: 760px; }
+  .te-heroimg::before { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10,14,22,0.35) 0%, rgba(10,14,22,0) 32%, rgba(10,14,22,0) 55%, rgba(10,14,22,0.78) 100%); }
+  .te-heroinfo { display: flex; flex-direction: column; min-height: 100%; padding: 8px 8px 10px; }
+  .te-topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .te-navlinks { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .te-navlinks a { color: #3C3B34; font-weight: 500; font-size: 15px; letter-spacing: .02em; }
+  .te-burger { display: none; background: transparent; border: 1px solid rgba(0,0,0,0.15); color: #16160F; width: 42px; height: 42px; border-radius: 12px; font-size: 18px; cursor: pointer; }
+  .te-hero-copy { margin-top: auto; padding-top: 24px; max-width: 46rem; }
+  .te-hero-copy h1 { font-size: clamp(40px, 4.2vw, 72px); line-height: 1.02; letter-spacing: -0.025em; margin: 0; color: #17170F; }
+  .te-hero-copy .te-primary-cta { display: inline-flex; align-items: center; gap: 10px; background: #16160F; color: #fff; font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 999px; margin-top: 30px; transition: transform .24s ease, box-shadow .24s ease; }
+  .te-hero-copy .te-primary-cta:hover { transform: translateY(-1px); box-shadow: 0 18px 38px rgba(22, 26, 33, 0.18); }
+  .te-thumb-row { margin-top: 36px; display: flex; gap: 14px; }
+  .te-thumb-row > * { flex: 1; min-width: 0; }
+  .te-thumb-card { position: relative; aspect-ratio: 1/1; border-radius: 18px; overflow: hidden; border: 2px solid transparent; background: #fff; box-shadow: 0 18px 40px rgba(20, 20, 15, 0.08); }
+  .te-hero-copy p { color: #6E6C63; font-size: 14.5px; line-height: 1.7; margin: 28px 0 0; max-width: 52ch; }
+  .te-two { display: grid; grid-template-columns: 1.3fr 1fr; gap: 36px; align-items: end; }
+  .te-grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+  .te-card-group { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; margin-top: 34px; }
+  .te-card-group .te-feature-btn { min-height: 98px; }
+  .te-section-heading { font-weight: 500; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.04; letter-spacing: -0.02em; margin: 0; color: #17170F; }
+  .te-section-copy { color: #6E6C63; font-size: 15px; line-height: 1.65; margin: 0; }
+  .te-banner-card { position: relative; border-radius: 24px; overflow: hidden; min-height: 500px; }
+  .te-section-card { background: #FDFDFB; border: 1px solid #ECEAE3; border-radius: 22px; overflow: hidden; }
+  .te-stat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 44px; }
+  .te-stat-card { position: relative; overflow: hidden; background: #F7F6F1; border: 1px solid #EDEBE4; border-radius: 16px; padding: 28px 18px 24px; text-align: center; transition: transform .22s ease, box-shadow .22s ease; }
+  .te-stat-card:hover { transform: translateY(-3px); box-shadow: 0 16px 30px rgba(20, 20, 15, 0.12); }
+  .te-feature-btn { display: flex; align-items: center; gap: 14px; text-align: left; cursor: pointer; min-height: 88px; padding: 18px 20px; border-radius: 18px; border: 1px solid #ECEAE3; background: #FEFEFE; box-shadow: 0 14px 30px rgba(20,20,15,0.06); transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+  .te-feature-btn:hover { transform: translateY(-2px); border-color: #CBC7C0; box-shadow: 0 20px 36px rgba(20,20,15,0.1); }
+  .te-feature-btn span { display: flex; flex-direction: column; min-width: 0; }
+  .te-feature-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.14); color: #ffffff; font-size: 17px; flex-shrink: 0; }
+  .te-banner-relax { margin-top: 30px; background: #FDFDFB; border: 1px solid #ECEAE3; border-radius: 22px; overflow: hidden; }
+  .te-card-list a { display: flex; align-items: center; gap: 16px; padding: 18px 24px; border-bottom: 1px solid #F0EEE7; color: #17170F; transition: background .15s ease; }
+  .te-card-list a:hover { background: #F7F6F1; }
+  .te-group { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
+  .te-quote-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: start; }
+  .te-quote-card { background: #FDFDFB; border: 1px solid #ECEAE3; border-radius: 20px; padding: 28px; }
+  .te-quote-card input, .te-quote-card select, .te-form-input, .te-form-select { width: 100%; background: #F7F6F1; border: 1px solid #E5E3DB; color: #17170F; padding: 14px 16px; border-radius: 11px; font-size: 15px; outline: none; }
+  .te-quote-card input:focus, .te-quote-card select:focus, .te-form-input:focus, .te-form-select:focus { border-color: #3B63D6; }
+  .te-form-label { display: block; font-weight: 600; font-size: 13px; color: #3C3B34; margin-bottom: 8px; }
+  .te-banner-button { display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px 0; border-radius: 14px; font-size: 14px; font-weight: 600; background: #16160F; color: #fff; text-decoration: none; transition: background .2s ease, transform .2s ease; }
+  .te-banner-button:hover { background: #262626; transform: translateY(-1px); }
+  .te-price-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 24px; border-bottom: 1px solid #F0EEE7; }
+  .te-price-row:last-child { border-bottom: none; }
+  .te-price-note { color: #8B8980; font-size: 13px; margin-top: 2px; }
+  .te-price-value { font-weight: 600; font-size: 17px; color: #2E56C8; white-space: nowrap; }
+  .te-service-item { display: flex; align-items: center; gap: 16px; width: 100%; }
+  .te-service-icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 11px; background: #EAEFFB; color: #2E56C8; font-size: 17px; flex-shrink: 0; }
+  .te-faq-question { width: 100%; text-align: left; background: transparent; border: none; color: #17170F; padding: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px; cursor: pointer; font-family: 'Hanken Grotesk'; font-weight: 600; font-size: 16px; }
+  .te-faq-answer { padding: 0 0 20px; color: #6E6C63; font-size: 14.5px; line-height: 1.65; max-width: 56ch; }
+  .te-footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+  .te-footer-links { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+  .te-footer-links a { color: #3C3B34; font-size: 15px; }
+  .te-banner-panel { position: absolute; right: 30px; bottom: 30px; width: min(320px, 42%); background: #FDFDFB; border-radius: 18px; padding: 24px; box-shadow: 0 24px 60px rgba(20,20,15,0.12); }
+  .te-banner-panel .te-pill { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 6px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; background: #F4F3EF; color: #3C3B34; }
+  .te-section-card--with-padding { padding: 20px 40px 40px; }
+  @media (max-width: 1200px) {
+    main { padding: 0 20px 40px; }
+    .te-hero-tagline { color: #fff; font-size: clamp(16px, 3.4vw, 22px); font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; max-width: 22ch; }
+    .te-hero { gap: 24px; }
+    .te-heroimg { min-height: 520px; }
+    .te-two, .te-group, .te-grid-4, .te-card-group, .te-stat-grid, .te-quote-grid, .te-footer-grid { grid-template-columns: 1fr; }
+    .te-card-list a { padding: 18px 18px; }
+    .te-thumb-row { flex-wrap: wrap; }
+    .te-section-card { padding: 32px 20px 30px; }
+    .te-card-group { gap: 18px; }
+    .te-quote-card { padding: 28px; }
+  }
+  @media (max-width: 900px) {
+    main { padding: 0 18px 36px; }
+    .te-navlinks { display: none !important; }
+    .te-burger { display: grid !important; }
+    .te-hero { grid-template-columns: 1fr !important; }
+    .te-heroimg { min-height: 360px !important; }
+    .te-heroinfo { padding: 0; }
+    .te-topbar { gap: 16px; }
+    .te-hero-copy { padding-top: 20px; }
+    .te-hero-copy h1 { font-size: clamp(32px, 8vw, 44px); }
+    .te-hero-copy p { margin-top: 24px; max-width: 100%; }
+    .te-primary-cta { width: max-content; }
+    .te-mobile-menu { width: 100%; }
+    .te-section-card { padding: 30px 18px 30px !important; }
+    .te-banner-panel { right: 16px; bottom: 16px; width: calc(100% - 32px); max-width: 280px; }
+    .te-card-list a { padding: 16px 16px; }
+    .te-quote-card { padding: 24px !important; }
+    .te-quote-card a { font-size: 16px; padding: 14px 0; }
+    .te-footer-grid { gap: 24px; }
+  }
+  @media (max-width: 720px) {
+    main { padding: 0 16px 32px; }
+    .te-two, .te-group, .te-grid-4, .te-card-group, .te-stat-grid, .te-quote-grid, .te-footer-grid { grid-template-columns: 1fr !important; }
+    .te-hero-copy h1 { font-size: clamp(28px, 10vw, 38px); }
+    .te-heroimg { min-height: 320px !important; }
+    .te-hero-tagline { font-size: 15px; max-width: 100%; }
+    .te-thumb-card { min-height: 132px; }
+    .te-card-list a { padding: 14px 14px; }
+    .te-footer-grid { gap: 20px; }
+    .te-footer-links a { font-size: 15px; }
+    .te-banner-panel { right: 14px; bottom: 14px; width: calc(100% - 28px); max-width: none; }
+    .te-primary-cta { width: 100%; justify-content: center; }
+    .te-hero-copy p { margin-top: 22px; max-width: 100%; }
+    .te-mobile-menu { padding: 16px; gap: 10px; }
+    .te-mobile-menu a { padding: 14px 12px; font-size: 17px; }
+  }
+  @media (max-width: 540px) {
+    .te-hero-copy h1 { font-size: clamp(26px, 12vw, 34px); }
+    .te-hero-copy { padding-top: 16px; }
+    .te-topbar { gap: 14px; }
+    .te-heroimg { min-height: 300px !important; }
+    .te-thumb-row { gap: 12px; }
+    .te-banner-panel { right: 12px; bottom: 12px; width: calc(100% - 24px); }
+    .te-banner-button { font-size: 15px; padding: 12px 0; }
+    .te-price-row { flex-direction: column; align-items: flex-start; padding: 16px 18px; }
+    .te-price-value { width: auto; }
+    .te-footer-grid { gap: 18px; }
+    .te-footer-links a { font-size: 14px; }
+  }
+  @media (min-width: 1600px) {
+    main { max-width: 1520px; }
+    section { padding: 72px 0 0; }
+    .te-hero { gap: 42px; }
+    .te-heroimg { min-height: 680px; }
+    .te-thumb-row { gap: 18px; }
+    .te-feature-btn { min-height: 104px; }
+    .te-card-group, .te-stat-grid { gap: 24px; }
+  }
 </style>
 </helmet>
 
@@ -33,55 +162,55 @@
 <div style="min-height:100%;background:#FDFDFB;">
   <x-import component-from-global-scope="image-slot" from="./image-slot.js" style="position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;" hint-size="0,0"></x-import>
 
-  <main style="max-width:1220px;margin:0 auto;">
+  <main>
 
     <!-- ===== HERO ===== -->
-    <section id="top" style="padding:20px;">
-      <div class="te-hero" style="display:grid;grid-template-columns:1.02fr 1fr;gap:22px;align-items:stretch;">
+    <section id="top">
+      <div class="te-hero">
 
         <!-- Left: big image card -->
-        <div class="te-heroimg" style="position:relative;border-radius:22px;overflow:hidden;min-height:520px;">
+        <div class="te-heroimg">
           <image-slot id="te-hero" shape="rect" src="assets/photos/fortuner-black.png" placeholder="Drop hero photo, freshly tinted car"></image-slot>
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,22,0.4) 0%,rgba(10,14,22,0) 32%,rgba(10,14,22,0) 55%,rgba(10,14,22,0.78) 100%);pointer-events:none;"></div>
           <div style="position:absolute;top:18px;left:18px;pointer-events:none;">
             <img src="assets/logo.png" alt="Tinting Evolution" style="display:block;height:60px;width:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,0.55));">
           </div>
           <div style="position:absolute;left:26px;right:26px;bottom:26px;pointer-events:none;">
-            <div style="color:#fff;font-size:22px;font-weight:500;line-height:1.2;letter-spacing:-0.01em;max-width:20ch;">Cooler cabins and real privacy, done right in your driveway.</div>
+            <div class="te-hero-tagline">Cooler cabins and real privacy, done right in your driveway.</div>
           </div>
         </div>
 
         <!-- Right: nav + headline + thumbs -->
-        <div style="display:flex;flex-direction:column;padding:6px 6px 10px;">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
-            <div class="te-navlinks" style="display:flex;align-items:center;gap:24px;">
-              <a href="#top" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Home</a>
-              <a href="#services" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Services</a>
-              <a href="#pricing" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Pricing</a>
-              <a href="#gallery" style="color:#3C3B34;font-weight:500;font-size:14.5px;">Gallery</a>
-              <a href="#faq" style="color:#3C3B34;font-weight:500;font-size:14.5px;">FAQ</a>
+        <div class="te-heroinfo">
+          <div class="te-topbar">
+            <div class="te-navlinks">
+              <a href="#top" class="te-navlink">Home</a>
+              <a href="#services" class="te-navlink">Services</a>
+              <a href="#pricing" class="te-navlink">Pricing</a>
+              <a href="#gallery" class="te-navlink">Gallery</a>
+              <a href="#faq" class="te-navlink">FAQ</a>
             </div>
-            <a href="#quote" style="display:inline-flex;align-items:center;background:#16160F;color:#fff;font-weight:600;font-size:14px;padding:11px 20px;border-radius:999px;white-space:nowrap;">Get a Quote</a>
-            <button onClick="{{ toggleNav }}" aria-label="Menu" class="te-burger" style="display:none;background:transparent;border:1px solid rgba(0,0,0,0.15);color:#16160F;width:42px;height:42px;border-radius:11px;font-size:18px;cursor:pointer;">☰</button>
+            <a href="#quote" class="te-primary-cta">Get a Quote</a>
+            <button onClick="{{ toggleNav }}" aria-label="Menu" class="te-burger">☰</button>
           </div>
 
           <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="display:flex;flex-direction:column;gap:2px;margin-top:14px;padding:10px;background:#F4F3EF;border-radius:16px;">
-              <a href="#services" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">Services</a>
-              <a href="#pricing" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">Pricing</a>
-              <a href="#gallery" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">Gallery</a>
-              <a href="#faq" onClick="{{ closeNav }}" style="color:#2A2A22;font-weight:500;padding:10px 6px;">FAQ</a>
+            <div class="te-mobile-menu">
+              <a href="#services" onClick="{{ closeNav }}">Services</a>
+              <a href="#pricing" onClick="{{ closeNav }}">Pricing</a>
+              <a href="#gallery" onClick="{{ closeNav }}">Gallery</a>
+              <a href="#faq" onClick="{{ closeNav }}">FAQ</a>
             </div>
           </sc-if>
 
-          <div style="margin-top:auto;padding-top:44px;">
-            <h1 style="font-weight:500;font-size:clamp(34px,4.6vw,58px);line-height:1.02;letter-spacing:-0.025em;margin:0;color:#17170F;">Tired of overpriced tinting? Get your <span style="color:#2E56C8;">own private guy.</span></h1>
-            <a href="#quote" style="display:inline-flex;align-items:center;gap:9px;background:#16160F;color:#fff;font-weight:600;font-size:15px;padding:14px 26px;border-radius:999px;margin-top:26px;">Get a free quote</a>
+          <div class="te-hero-copy">
+            <h1>Tired of overpriced tinting? Get your <span style="color:#2E56C8;">own private guy.</span></h1>
+            <a href="#quote" class="te-primary-cta">Get a free quote</a>
           </div>
 
-          <div style="margin-top:34px;display:flex;gap:12px;">
+          <div class="te-thumb-row">
             <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="4">
-              <div style="flex:1;position:relative;aspect-ratio:1/1;border-radius:14px;overflow:hidden;border:2px solid {{ t.ring }};">
+              <div class="te-thumb-card">
                 <image-slot id="{{ t.id }}" shape="rect" src="{{ t.src }}" placeholder="{{ t.ph }}"></image-slot>
               </div>
             </sc-for>
@@ -93,13 +222,12 @@
     </section>
 
     <!-- ===== CRAFT + FEATURE PILLS ===== -->
-    <section style="padding:64px 40px 40px;">
-      
-      <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end;margin-top:16px;">
-        <h2 style="font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.04;letter-spacing:-0.02em;margin:0;color:#17170F;">Premium tint, priced for real people</h2>
-        <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:0;">Same films, same tools, same finish the studios deliver: Apex film in shades from 5% to 50%, backed for five years. The difference is you skip the showroom markup.</p>
+    <section class="te-section-card">
+      <div class="te-two">
+        <h2 class="te-section-heading">Premium tint, priced for real people</h2>
+        <p class="te-section-copy">Same films, same tools, same finish the studios deliver: Apex film in shades from 5% to 50%, backed for five years. The difference is you skip the showroom markup.</p>
       </div>
-      <div class="te-two" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px;">
+      <div class="te-card-group">
         <sc-for list="{{ features }}" as="f" hint-placeholder-count="4">
           <button onClick="{{ f.select }}" style="display:flex;align-items:center;gap:14px;text-align:left;cursor:pointer;min-height:88px;padding:17px 18px;border-radius:18px;border:1px solid {{ f.border }};background:{{ f.bg }};box-shadow:{{ f.shadow }};transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;" style-hover="transform:translateY(-3px);">
             <span style="display:grid;place-items:center;width:44px;height:44px;border-radius:12px;background:{{ f.iconBg }};color:{{ f.iconColor }};font-size:17px;flex-shrink:0;">{{ f.icon }}</span>
@@ -113,30 +241,30 @@
     </section>
 
     <!-- ===== SHOWCASE + OVERLAY CARD ===== -->
-    <section style="padding:20px 40px 40px;">
-      <div style="position:relative;border-radius:24px;overflow:hidden;min-height:460px;">
+    <section class="te-section-card te-section-card--padded">
+      <div class="te-banner-card">
         <image-slot id="te-showcase" shape="rect" src="assets/photos/bmw.png" placeholder="Drop a wide tinted-car photo"></image-slot>
         <div style="position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,14,22,0.55),rgba(10,14,22,0.1) 60%);pointer-events:none;"></div>
         <div style="position:absolute;top:28px;left:30px;pointer-events:none;">
           <div style="color:#6D94FF;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;">The finish</div>
           <div style="color:#fff;font-weight:500;font-size:clamp(24px,3vw,36px);line-height:1.05;letter-spacing:-0.02em;margin-top:8px;max-width:16ch;">Studio-grade tint, at your place</div>
         </div>
-        <div style="position:absolute;right:22px;bottom:22px;width:min(250px,76%);background:#FDFDFB;border-radius:16px;padding:15px;box-shadow:0 24px 50px rgba(0,0,0,0.3);">
+        <div class="te-banner-panel">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
             <span style="font-size:11.5px;color:#8B8980;font-weight:600;">Sedan · all windows</span>
-            <span style="background:#EAEFFB;color:#2E56C8;font-weight:700;font-size:10.5px;padding:4px 9px;border-radius:999px;">20% shade</span>
+            <span class="te-pill">20% shade</span>
           </div>
           <div style="font-weight:600;font-size:26px;letter-spacing:-0.02em;margin-top:7px;color:#17170F;">from R1,000</div>
           <div style="display:flex;gap:7px;margin-top:10px;">
             <span style="background:#F4F3EF;color:#3C3B34;font-size:10.5px;font-weight:600;padding:5px 9px;border-radius:999px;">✓ 5-yr warranty</span>
             <span style="background:#F4F3EF;color:#3C3B34;font-size:10.5px;font-weight:600;padding:5px 9px;border-radius:999px;">Apex film</span>
           </div>
-          <a href="#quote" style="display:flex;align-items:center;justify-content:center;background:#16160F;color:#fff;font-weight:600;font-size:13px;padding:10px;border-radius:11px;margin-top:12px;">Get this quote</a>
+          <a href="#quote" class="te-banner-button">Get this quote</a>
         </div>
       </div>
 
       <!-- stats -->
-      <div class="te-two" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px;">
+      <div class="te-stat-grid">
         <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
           <div style="position:relative;overflow:hidden;background:#F7F6F1;border:1px solid #EDEBE4;border-radius:16px;padding:28px 18px 24px;text-align:center;transition:transform .22s ease, box-shadow .22s ease;" style-hover="transform:translateY(-3px);box-shadow:0 14px 28px rgba(20,20,15,0.08);">
             <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:36px;height:4px;border-radius:0 0 4px 4px;background:linear-gradient(90deg,#5B84F0,#2C46B8);"></div>
@@ -148,27 +276,27 @@
     </section>
 
     <!-- ===== SERVICES LIST (dark image + card) ===== -->
-    <section id="services" style="padding:40px 40px 20px;">
-      <div style="position:relative;border-radius:24px 24px 0 0;overflow:hidden;min-height:280px;">
+    <section id="services">
+      <div class="te-banner-card">
         <image-slot id="te-servbg" shape="rect" src="assets/photos/gr-corolla.png" placeholder="Drop a wide landscape car photo"></image-slot>
         <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,22,0.25),rgba(10,14,22,0.72));pointer-events:none;"></div>
         <div style="position:absolute;left:30px;bottom:26px;right:30px;pointer-events:none;">
           <div style="color:#6D94FF;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;">Car &amp; glass tinting</div>
-          <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:24px;align-items:end;margin-top:8px;">
+          <div class="te-group" style="margin-top:8px;">
             <div style="color:#fff;font-weight:500;font-size:clamp(24px,3vw,38px);line-height:1.05;letter-spacing:-0.02em;">Everything I can tint for you</div>
             <div style="color:#D8D6CE;font-size:14px;line-height:1.6;">From a quick front-two to a full PPF wrap. Cars, bakkies, homes and offices. Pick a service, I'll confirm the exact price.</div>
           </div>
         </div>
       </div>
-      <div style="background:#FDFDFB;border:1px solid #ECEAE3;border-top:none;border-radius:0 0 24px 24px;overflow:hidden;">
+      <div class="te-section-card te-card-list">
         <sc-for list="{{ serviceList }}" as="s" hint-placeholder-count="6">
-          <a href="#quote" style="display:flex;align-items:center;gap:16px;padding:18px 24px;border-bottom:1px solid #F0EEE7;color:#17170F;transition:background .15s;" style-hover="background:#F7F6F1;">
-            <span style="display:grid;place-items:center;width:44px;height:44px;border-radius:11px;background:#EAEFFB;color:#2E56C8;font-size:17px;flex-shrink:0;">{{ s.icon }}</span>
+          <a href="#quote" class="te-service-item">
+            <span class="te-service-icon">{{ s.icon }}</span>
             <span style="flex:1;min-width:0;">
               <span style="display:block;font-weight:600;font-size:16px;">{{ s.t }}</span>
               <span style="display:block;color:#8B8980;font-size:13px;margin-top:2px;">{{ s.d }}</span>
             </span>
-            <span style="font-weight:600;font-size:15px;color:#17170F;white-space:nowrap;">{{ s.p }}</span>
+            <span class="te-price-value">{{ s.p }}</span>
             <span style="color:#B5B2A8;font-size:18px;flex-shrink:0;">›</span>
           </a>
         </sc-for>
@@ -176,9 +304,9 @@
     </section>
 
     <!-- ===== USE-CASE ===== -->
-    <section style="padding:44px 40px 20px;">
+    <section>
       
-      <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end;margin-top:16px;">
+      <div class="te-two">
         <h2 style="font-weight:500;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.02em;margin:0;color:#17170F;">The real difference tint makes</h2>
         <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:0;">Beyond the looks, every job is about comfort, protection and keeping your interior like new.</p>
       </div>
@@ -193,36 +321,36 @@
     </section>
 
     <!-- ===== PRICING ===== -->
-    <section id="pricing" style="padding:56px 40px 20px;">
+    <section id="pricing">
       
-      <div class="te-two" style="display:grid;grid-template-columns:1.3fr 1fr;gap:36px;align-items:end;margin-top:16px;">
+      <div class="te-group">
         <h2 style="font-weight:500;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.02em;margin:0;color:#17170F;">No hidden costs. Starting-from pricing.</h2>
         <p style="color:#6E6C63;font-size:15px;line-height:1.65;margin:0;">Final quote depends on your vehicle and shade. Message me and I'll confirm on the spot.</p>
       </div>
-      <div style="margin-top:30px;background:#FDFDFB;border:1px solid #ECEAE3;border-radius:22px;overflow:hidden;">
+      <div class="te-section-card">
         <sc-for list="{{ pricing }}" as="p" hint-placeholder-count="8">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 24px;border-bottom:1px solid #F0EEE7;">
+          <div class="te-price-row">
             <div>
               <div style="font-weight:600;font-size:15.5px;color:#17170F;">{{ p.name }}</div>
-              <div style="color:#8B8980;font-size:13px;margin-top:2px;">{{ p.note }}</div>
+              <div class="te-price-note">{{ p.note }}</div>
             </div>
-            <div style="font-weight:600;font-size:17px;color:#2E56C8;white-space:nowrap;">{{ p.price }}</div>
+            <div class="te-price-value">{{ p.price }}</div>
           </div>
         </sc-for>
-        <div style="padding:16px 24px;text-align:center;color:#8B8980;font-size:12.5px;background:#F7F6F1;">All prices in ZAR · “from” pricing · 5-year warranty included on every job</div>
+        <div class="te-price-footnote">All prices in ZAR · “from” pricing · 5-year warranty included on every job</div>
       </div>
     </section>
 
     <!-- ===== GALLERY ===== -->
-    <section id="gallery" style="padding:56px 40px 20px;">
-      <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;">
+    <section id="gallery">
+      <div class="te-group" style="align-items:flex-end;justify-content:space-between;gap:16px;">
         <div>
           
           <h2 style="font-weight:500;font-size:clamp(26px,3.4vw,42px);line-height:1.05;letter-spacing:-0.02em;margin:14px 0 0;color:#17170F;">Recent jobs around Paarl</h2>
         </div>
         <a href="https://instagram.com/keananwaries" target="_blank" style="font-weight:600;font-size:14px;color:#2E56C8;">See more on Instagram →</a>
       </div>
-      <div class="te-two" style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px;">
+      <div class="te-card-group" style="margin-top:28px;">
         <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal1" shape="rect" src="assets/photos/fortuner-white.png" placeholder="Fortuner, full tint"></image-slot></div>
         <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal2" shape="rect" src="assets/photos/corolla-cross.png" placeholder="Corolla Cross, tint"></image-slot></div>
         <div style="position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;"><image-slot id="te-gal3" shape="rect" src="assets/photos/toyota-blue.png" placeholder="Toyota SUV, tint"></image-slot></div>
@@ -231,8 +359,8 @@
     </section>
 
     <!-- ===== FAQ ===== -->
-    <section id="faq" style="padding:56px 40px 20px;">
-      <div class="te-two" style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:40px;align-items:start;">
+    <section id="faq">
+      <div class="te-two" style="align-items:start; gap:40px;">
         <div>
           <h2 style="font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.02;letter-spacing:-0.02em;margin:0;color:#17170F;">Frequently asked questions</h2>
           <a href="{{ waPlain }}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#16160F;color:#fff;font-weight:600;font-size:14px;padding:13px 24px;border-radius:999px;margin-top:26px;">Chat to Keanan</a>
@@ -254,9 +382,9 @@
     </section>
 
     <!-- ===== QUOTE FORM ===== -->
-    <section id="quote" style="padding:56px 40px 20px;">
-      <div style="background:#F5F4EF;border-radius:26px;padding:40px;">
-        <div class="te-two" style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;">
+    <section id="quote">
+      <div class="te-quote-card">
+        <div class="te-quote-grid">
           <div>
             <div style="display:flex;align-items:center;gap:9px;color:#9A988F;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;font-size:12px;">✎ Free quote</div>
             <h2 style="font-weight:500;font-size:clamp(28px,3.6vw,44px);line-height:1.02;letter-spacing:-0.02em;margin:14px 0 0;color:#17170F;">Tell me what you drive.</h2>
@@ -267,26 +395,26 @@
             </div>
           </div>
           <div style="background:#FDFDFB;border:1px solid #ECEAE3;border-radius:20px;padding:26px;">
-            <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin-bottom:7px;">Your name</label>
-            <input value="{{ fName }}" onInput="{{ setName }}" placeholder="e.g. Thabo" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 14px;border-radius:11px;font-size:15px;outline:none;" style-focus="border-color:#3B63D6;">
-            <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin:16px 0 7px;">Vehicle (make &amp; model)</label>
-            <input value="{{ fVehicle }}" onInput="{{ setVehicle }}" placeholder="e.g. VW Polo / Toyota Hilux" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 14px;border-radius:11px;font-size:15px;outline:none;" style-focus="border-color:#3B63D6;">
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;">
+            <label class="te-form-label">Your name</label>
+            <input class="te-form-input" value="{{ fName }}" onInput="{{ setName }}" placeholder="e.g. Thabo" style-focus="border-color:#3B63D6;">
+            <label class="te-form-label">Vehicle (make &amp; model)</label>
+            <input class="te-form-input" value="{{ fVehicle }}" onInput="{{ setVehicle }}" placeholder="e.g. VW Polo / Toyota Hilux" style-focus="border-color:#3B63D6;">
+            <div class="te-group" style="margin-top:16px;">
               <div>
-                <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin-bottom:7px;">Service</label>
-                <select value="{{ fService }}" onChange="{{ setService }}" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 12px;border-radius:11px;font-size:14.5px;outline:none;">
+                <label class="te-form-label">Service</label>
+                <select class="te-form-select" value="{{ fService }}" onChange="{{ setService }}">
                   <sc-for list="{{ serviceOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
                 </select>
               </div>
               <div>
-                <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin-bottom:7px;">Shade</label>
-                <select value="{{ fShade }}" onChange="{{ setShade }}" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 12px;border-radius:11px;font-size:14.5px;outline:none;">
+                <label class="te-form-label">Shade</label>
+                <select class="te-form-select" value="{{ fShade }}" onChange="{{ setShade }}">
                   <sc-for list="{{ shadeOptions }}" as="o" hint-placeholder-count="6"><option value="{{ o }}">{{ o }}</option></sc-for>
                 </select>
               </div>
             </div>
-            <label style="display:block;font-weight:600;font-size:13px;color:#3C3B34;margin:16px 0 7px;">Area / suburb</label>
-            <input value="{{ fArea }}" onInput="{{ setArea }}" placeholder="e.g. Paarl North" style="width:100%;background:#F7F6F1;border:1px solid #E5E3DB;color:#17170F;padding:13px 14px;border-radius:11px;font-size:15px;outline:none;" style-focus="border-color:#3B63D6;">
+            <label class="te-form-label">Area / suburb</label>
+            <input class="te-form-input" value="{{ fArea }}" onInput="{{ setArea }}" placeholder="e.g. Paarl North" style-focus="border-color:#3B63D6;">
             <a href="{{ waHref }}" target="_blank" style="margin-top:22px;display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:#06210F;font-weight:700;font-size:16px;padding:15px;border-radius:12px;">Send on WhatsApp →</a>
             <p style="text-align:center;color:#9A988F;font-size:12px;margin:12px 0 0;">Opens WhatsApp with your details filled in. No spam, ever.</p>
           </div>
@@ -296,7 +424,7 @@
 
     <!-- ===== FOOTER ===== -->
     <footer style="padding:56px 40px 40px;">
-      <div class="te-two" style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;border-top:1px solid #E9E7DF;padding-top:40px;">
+      <div class="te-footer-grid" style="border-top:1px solid #E9E7DF;padding-top:40px;">
         <div>
           <img src="assets/logo.png" alt="Tinting Evolution" style="display:block;height:64px;width:auto;">
           <p style="color:#8B8980;font-size:14px;line-height:1.6;margin:16px 0 0;max-width:34ch;">Mobile car &amp; glass tinting in Paarl. Same quality as the big names, at almost half the price.</p>
