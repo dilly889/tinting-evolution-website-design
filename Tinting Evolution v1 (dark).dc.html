@@ -277,7 +277,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { navOpen: false, openFaq: 0, fName: '', fVehicle: '', fService: 'Car window tint — all windows', fShade: '20%', fArea: '' };
+  state = { navOpen: false, openFaq: 0, fName: '', fVehicle: '', fService: 'Car window tint - all windows', fShade: '20%', fArea: '' };
 
   set(k) { return (e) => this.setState({ [k]: e.target.value }); }
 
@@ -289,24 +289,24 @@ class Component extends DCLogic {
     const s = this.state;
     const services = [
       { icon: '⬛', title: 'Car window tinting', desc: 'All side and rear windows tinted with premium Apex film. Cooler cabin, more privacy, sharper looks.' },
-      { icon: '▬', title: 'Windshield tinting', desc: 'Full windshield or a sun strip up top — cut glare and heat on the long Paarl drives.' },
+      { icon: '▬', title: 'Windshield tinting', desc: 'Full windshield or a sun strip up top - cut glare and heat on the long Paarl drives.' },
       { icon: '◲', title: 'Sunroof tinting', desc: 'Keep the sunroof, lose the heat. Neat, bubble-free finish that matches your windows.' },
-      { icon: '⬒', title: 'Home & office glass', desc: 'Flat-glass film for houses and offices — privacy, heat control and UV protection for your space.' },
+      { icon: '⬒', title: 'Home & office glass', desc: 'Flat-glass film for houses and offices - privacy, heat control and UV protection for your space.' },
       { icon: '◨', title: 'Paint protection film', desc: 'Full or partial PPF to guard your paint against chips, scratches and the elements.' },
       { icon: '◍', title: 'Ceramic coating', desc: 'Long-lasting ceramic protection for a deep gloss and easy, water-beading cleaning.' },
     ];
     const pricing = [
-      { name: 'Sedan — all windows', note: 'Complete tint, every window', price: 'from R1,000' },
-      { name: 'Sedan — front 2', note: 'Driver & passenger', price: 'from R400' },
-      { name: 'Bakkie — all windows', note: 'Complete tint', price: 'from R1,350' },
-      { name: 'Bakkie — front 2', note: 'Driver & passenger', price: 'from R500' },
+      { name: 'Sedan - all windows', note: 'Complete tint, every window', price: 'from R1,000' },
+      { name: 'Sedan - front 2', note: 'Driver & passenger', price: 'from R400' },
+      { name: 'Bakkie - all windows', note: 'Complete tint', price: 'from R1,350' },
+      { name: 'Bakkie - front 2', note: 'Driver & passenger', price: 'from R500' },
       { name: 'Bakkie canopy', note: 'Canopy glass', price: 'from R600' },
       { name: 'Sunroof', note: 'Single panel', price: 'from R300' },
       { name: 'Windshield', note: 'Full or sun strip', price: 'from R1,000' },
       { name: 'Full PPF', note: 'Paint protection film', price: 'from R20,000+' },
     ];
     const faqs = [
-      { q: 'Do you really come to me?', a: 'Yes — I\u2019m fully mobile. I set up at your home or workplace across Paarl and surrounds. Outside that radius I\u2019m happy to travel for a small transport cost.' },
+      { q: 'Do you really come to me?', a: 'Yes - I\u2019m fully mobile. I set up at your home or workplace across Paarl and surrounds. Outside that radius I\u2019m happy to travel for a small transport cost.' },
       { q: 'How long does a car take?', a: 'A typical full-car tint takes about 2\u20133 hours. I\u2019ll give you a time when we book so you can plan your day.' },
       { q: 'What film do you use?', a: 'Premium Apex film in shades from 5% up to 50%, so you can go as dark or as light as you like while staying road-legal on the windows that matter.' },
       { q: 'What\u2019s the warranty?', a: 'Every job comes with a 5-year warranty. If the film ever bubbles, peels or discolours in that time, I sort it out.' },
@@ -325,8 +325,8 @@ class Component extends DCLogic {
       toggleNav: () => this.setState(st => ({ navOpen: !st.navOpen })),
       closeNav: () => this.setState({ navOpen: false }),
       services, pricing, faqList,
-      serviceOptions: ['Car window tint — all windows', 'Car window tint — front 2', 'Bakkie — all windows', 'Bakkie — front 2', 'Bakkie canopy', 'Windshield', 'Sunroof', 'Home / office glass', 'Paint protection film (PPF)', 'Ceramic coating'],
-      shadeOptions: ['5%', '20%', '35%', '50%', 'Not sure — advise me'],
+      serviceOptions: ['Car window tint - all windows', 'Car window tint - front 2', 'Bakkie - all windows', 'Bakkie - front 2', 'Bakkie canopy', 'Windshield', 'Sunroof', 'Home / office glass', 'Paint protection film (PPF)', 'Ceramic coating'],
+      shadeOptions: ['5%', '20%', '35%', '50%', 'Not sure - advise me'],
       fName: s.fName, fVehicle: s.fVehicle, fService: s.fService, fShade: s.fShade, fArea: s.fArea,
       setName: this.set('fName'), setVehicle: this.set('fVehicle'), setService: this.set('fService'), setShade: this.set('fShade'), setArea: this.set('fArea'),
       waHref: this.waLink(msg),
