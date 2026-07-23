@@ -101,8 +101,10 @@
   }
   @media (max-width: 900px) {
     main { padding: 0 18px 36px; }
-    .te-navlinks { display: none !important; }
-    .te-burger { display: grid !important; position: absolute; top: -22px; right: 12px; z-index: 80; }
+    /* Show the nav links above the hero and remove the burger on small screens */
+    .te-navlinks { display: flex !important; position: absolute; top: -48px; right: 12px; gap: 12px; z-index: 85; }
+    .te-navlinks a { font-size: 14px; padding: 6px 10px; background: rgba(255,255,255,0.95); border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); }
+    .te-burger { display: none !important; }
     .te-hero { grid-template-columns: 1fr !important; }
     .te-heroimg { min-height: 360px !important; }
     .te-heroinfo { padding: 0; }
