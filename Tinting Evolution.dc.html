@@ -102,11 +102,13 @@
   }
   @media (max-width: 900px) {
     main { padding: 0 18px 36px; }
-    /* Small screens: hide full nav, overlay topbar on hero and show circular controls */
+    /* Option A: overlay compact circular controls inside the hero, keep hero large and add bottom padding so headline never collides */
     .te-navlinks { display: none !important; }
-    .te-topbar { left: 12px; right: 12px; top: 12px; }
-    .te-burger { display: grid !important; width:44px; height:44px; border-radius:12px; align-items:center; justify-content:center; background:#fff; border:1px solid rgba(0,0,0,0.06); box-shadow:0 8px 22px rgba(0,0,0,0.08); }
-    .te-search { display: grid; width:44px; height:44px; border-radius:12px; align-items:center; justify-content:center; background:rgba(255,255,255,0.9); border:1px solid rgba(0,0,0,0.06); box-shadow:0 8px 22px rgba(0,0,0,0.08); font-size:18px; }
+    .te-topbar { left: 12px; right: 12px; top: 12px; position: absolute; align-items: center; justify-content: space-between; z-index: 90; }
+    .te-search, .te-burger { display: grid !important; width:40px; height:40px; border-radius:50%; place-items:center; background: rgba(255,255,255,0.94); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 8px 20px rgba(0,0,0,0.08); opacity: 0.98; }
+    .te-search { margin-left: 4px; }
+    .te-burger { margin-right: 4px; }
+    .te-heroimg { padding-bottom: 44px !important; }
     .te-hero { grid-template-columns: 1fr !important; }
     .te-heroimg { min-height: 360px !important; }
     .te-heroinfo { padding: 0; }
@@ -127,7 +129,7 @@
     main { padding: 0 16px 32px; }
     .te-two, .te-group, .te-grid-4, .te-card-group, .te-stat-grid, .te-quote-grid, .te-footer-grid { grid-template-columns: 1fr !important; }
     .te-hero-copy h1 { font-size: clamp(28px, 10vw, 38px); }
-    .te-heroimg { min-height: 520px !important; }
+    .te-heroimg { min-height: 560px !important; padding-bottom: 52px !important; }
     .te-hero-tagline { font-size: 15px; max-width: 100%; }
     .te-thumb-card { min-height: 132px; }
     .te-card-list a { padding: 14px 14px; }
