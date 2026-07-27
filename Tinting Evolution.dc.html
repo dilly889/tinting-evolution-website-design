@@ -236,7 +236,7 @@
           </div>
 
           <div class="te-thumb-row">
-            <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="4">
+            <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="3">
               <div class="te-thumb-card">
                 <image-slot id="{{ t.id }}" shape="rect" src="{{ t.src }}" placeholder="{{ t.ph }}"></image-slot>
               </div>
@@ -532,7 +532,6 @@ class Component extends DCLogic {
     const thumbData = [
       { id: 'te-th1', ph: 'Vitara', src: 'assets/photos/grand-vitara.png' },
       { id: 'te-th2', ph: 'Polo', src: 'assets/photos/polo-grey.png' },
-      { id: 'te-th3', ph: 'Polo', src: 'assets/photos/polo-silver.png' },
       { id: 'te-th4', ph: 'BMW', src: 'assets/photos/bmw.png' },
     ];
     const thumbs = thumbData.map((t, i) => ({ ...t, ring: 'transparent' }));
