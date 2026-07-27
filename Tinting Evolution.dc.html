@@ -39,7 +39,8 @@
   .te-topbar { position: absolute; left: 12px; right: 12px; top: 12px; z-index: 90; }
   .te-navlinks { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
   .te-navlinks a { color: #3C3B34; font-weight: 500; font-size: 15px; letter-spacing: .02em; }
-  .te-mobile-topbar { display: none; position: absolute; z-index: 5; }
+  .te-hero-topline { display: flex; align-items: center; flex-wrap: wrap; row-gap: 8px; gap: 10px; z-index: 5; }
+  .te-mobile-topbar { display: none; pointer-events: auto; }
   .te-hero-copy { margin-top: auto; padding-top: 24px; max-width: 46rem; }
   .te-hero-copy h1 { font-size: clamp(40px, 4.2vw, 72px); line-height: 1.02; letter-spacing: -0.025em; margin: 0; color: #17170F; }
   .te-hero-copy .te-primary-cta { display: inline-flex; align-items: center; gap: 10px; background: #16160F; color: #fff; font-weight: 600; font-size: 15px; padding: 14px 28px; border-radius: 999px; margin-top: 30px; transition: transform .24s ease, box-shadow .24s ease; }
@@ -102,15 +103,16 @@
   }
   @media (max-width: 900px) {
     main { padding: 0 18px 36px; }
-    /* Nav links overlay the hero image on mobile, below the logo; the desktop topbar (nav links, quote pill) is hidden */
+    /* Nav links sit beside the logo, overlaid on the hero image; the desktop topbar (nav links, quote pill) is hidden */
     .te-navlinks { display: none !important; }
     .te-topbar > .te-primary-cta { display: none !important; }
     .te-topbar { left: auto; right: auto; top: auto; position: relative; }
     section:first-of-type { padding-top: 0; }
     .te-heroimg { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); border-radius: 0; }
-    .te-mobile-topbar { display: flex; align-items: center; gap: 1px; top: 86px; left: 50%; transform: translateX(-50%); max-width: calc(100% - 56px); overflow-x: auto; scrollbar-width: none; background: rgba(15,15,13,0.62); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 4px; box-shadow: 0 10px 26px rgba(0,0,0,0.3); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); }
+    .te-hero-logo { height: 36px !important; }
+    .te-mobile-topbar { display: flex; align-items: center; gap: 1px; flex: 1 1 auto; min-width: 220px; max-width: 100%; overflow-x: auto; scrollbar-width: none; background: rgba(15,15,13,0.62); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 3px; box-shadow: 0 8px 22px rgba(0,0,0,0.3); backdrop-filter: blur(16px) saturate(160%); -webkit-backdrop-filter: blur(16px) saturate(160%); }
     .te-mobile-topbar::-webkit-scrollbar { display: none; }
-    .te-mobile-topbar a { font-size: 12px; font-weight: 500; padding: 7px 11px; border-radius: 999px; color: rgba(255,255,255,0.82); white-space: nowrap; flex-shrink: 0; transition: background .2s ease, color .2s ease; }
+    .te-mobile-topbar a { font-size: 11px; font-weight: 500; padding: 6px 9px; border-radius: 999px; color: rgba(255,255,255,0.82); white-space: nowrap; flex-shrink: 0; transition: background .2s ease, color .2s ease; }
     .te-mobile-topbar a:hover { background: rgba(255,255,255,0.16); color: #fff; }
     .te-mobile-topbar a:first-child { background: #fff; color: #17170F; }
     .te-heroimg { padding-bottom: 44px !important; }
@@ -200,15 +202,15 @@
         <div class="te-heroimg">
           <image-slot id="te-hero" shape="rect" src="assets/photos/fortuner-black.png" placeholder="Drop hero photo, freshly tinted car"></image-slot>
           <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,14,22,0.4) 0%,rgba(10,14,22,0) 32%,rgba(10,14,22,0) 55%,rgba(10,14,22,0.78) 100%);pointer-events:none;"></div>
-          <div style="position:absolute;top:18px;left:18px;pointer-events:none;">
-            <img src="assets/logo.png" alt="Tinting Evolution" style="display:block;height:60px;width:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,0.55));">
-          </div>
-          <div class="te-mobile-topbar">
-            <a href="#top" class="te-navlink">Home</a>
-            <a href="#services" class="te-navlink">Services</a>
-            <a href="#pricing" class="te-navlink">Pricing</a>
-            <a href="#gallery" class="te-navlink">Gallery</a>
-            <a href="#faq" class="te-navlink">FAQ</a>
+          <div class="te-hero-topline" style="position:absolute;top:18px;left:18px;right:18px;pointer-events:none;">
+            <img src="assets/logo.png" alt="Tinting Evolution" class="te-hero-logo" style="display:block;height:60px;width:auto;filter:drop-shadow(0 4px 14px rgba(0,0,0,0.55));flex-shrink:0;">
+            <div class="te-mobile-topbar">
+              <a href="#top" class="te-navlink">Home</a>
+              <a href="#services" class="te-navlink">Services</a>
+              <a href="#pricing" class="te-navlink">Pricing</a>
+              <a href="#gallery" class="te-navlink">Gallery</a>
+              <a href="#faq" class="te-navlink">FAQ</a>
+            </div>
           </div>
           <div style="position:absolute;left:26px;right:26px;bottom:26px;pointer-events:none;">
             <div class="te-hero-tagline">Cooler cabins and real privacy, done right in your driveway.</div>
